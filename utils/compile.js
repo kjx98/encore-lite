@@ -53,8 +53,9 @@ console.log("Optimize:", data.optimize);
 
 var output = {}
 if (data.compilerVersion) {
-  var solcVersion = solc.setupMethods(require("./solc-bin/bin/" + data.compilerVersion))
-  output = solcVersion.compile(data.source, data.optimize ? 1 : 0);
+  //var solcVersion = solc.setupMethods(require("./solc-bin/bin/" + data.compilerVersion))
+  //output = solcVersion.compile(data.source, data.optimize ? 1 : 0);
+  output = solc.compile(data.source, data.optimize ? 1 : 0);
   // console.log(JSON.stringify(output));
 } else {
   output = solc.compile(data.source, data.optimize ? 1 : 0);

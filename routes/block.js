@@ -9,6 +9,20 @@ router.get('/:block', function(req, res, next) {
   var config = req.app.get('config');  
   var web3 = new Web3();
   web3.setProvider(config.provider);
+	web3.extend({
+		property: 'trace',
+		methods:[{
+			name: 'block',
+			call: 'debug_traceBlockByNumber',
+			params: 2,
+			inputFormatter: [web3.extend.formatters.inputBlockNumberFormatter, null]
+		},{
+			name: 'transaction',
+			call: 'debug_traceTransaction',
+			params: 2,
+			inputFormatter: [null, null]
+		}]
+	});
   
   async.waterfall([
     function(callback) {

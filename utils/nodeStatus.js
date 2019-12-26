@@ -9,17 +9,18 @@ var nodeStatus = function(config) {
   this.version = "";
   
   this.updateStatus = function() {
-    var web3 = new Web3();
-    web3.setProvider(config.provider);
+    var web3 = new Web3(config.provider);
+    //web3.setProvider(config.provider);
+	console.log("web3:", web3);
     
     async.waterfall([
       function(callback) {
-        web3.version.getNode(function(err, result) {
+        web3.eth.getNodeInfo(function(err, result) {
           self.version = result;
           callback(err);
         });
       }, function(callback) {
-        web3.net.getPeerCount(function(err, result) {
+        web3.eth.net.getPeerCount(function(err, result) {
           self.nbrPeers = result;
           callback(err);
         });

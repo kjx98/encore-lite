@@ -11,7 +11,7 @@ router.get('/:offset?', function(req, res, next) {
   
   async.waterfall([
     function(callback) {
-      web3.parity.listAccounts(20, req.params.offset, function(err, result) {
+      web3.eth.getAccounts(function(err, result) {
         callback(err, result);
       });
     }, function(accounts, callback) {

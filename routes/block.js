@@ -9,7 +9,7 @@ router.get('/:block', function(req, res, next) {
   var config = req.app.get('config');  
   var web3 = new Web3();
   web3.setProvider(config.provider);
-	web3.extend({
+    web3.extend({
 		property: 'trace',
 		methods:[{
 			name: 'block',
@@ -22,7 +22,7 @@ router.get('/:block', function(req, res, next) {
 			params: 2,
 			inputFormatter: [null, null]
 		}]
-	});
+    });
   
   async.waterfall([
     function(callback) {

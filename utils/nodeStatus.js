@@ -11,7 +11,7 @@ var nodeStatus = function(config) {
   this.updateStatus = function() {
     var web3 = new Web3(config.provider);
     //web3.setProvider(config.provider);
-	console.log("web3:", web3);
+	//console.log("web3:", web3);
     
     async.waterfall([
       function(callback) {

@@ -41,13 +41,16 @@ router.get('/', function(req, res, next) {
     var txs = [];
     blocks.forEach(function(block) {
       block.transactions.forEach(function(tx) {
-        if (txs.length === 10) {
+        if (txs.length === 32) {
           return;
         }
         txs.push(tx);
       });
     });
-    res.render('index', { blocks: blocks, txs: txs });
+    if (blocks.length > 10) {
+      blocks = blocks.slice(0,10);
+    }
+    res.render('index', { blocks: blocks, txs: txs, blockCount: config.blockCount });
   });
   
 });

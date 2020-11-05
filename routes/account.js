@@ -14,6 +14,7 @@ router.get('/:account', function(req, res, next) {
 
   var config = req.app.get('config');
   var web3 = new Web3();
+  if (config.blockCount < 128) config.blockCount = 128;
   web3complete(web3);
   web3.setProvider(config.provider);
 

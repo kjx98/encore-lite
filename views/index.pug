@@ -17,7 +17,7 @@ block content
             a(href="/block/" + block.number) #{block.number}
           td 
             a(href="/account/" + block.author) #{nameformatter.format(block.author)}
-          td #{moment.unix(block.timestamp).format()}
+          td #{moment(Number(block.timestampMS)).format("YYYY-MM-DD HH:mm:ss.SSSZ")}
           td #{block.transactions.length}
           td #{block.uncles.length}
   h3 Recent Transactions

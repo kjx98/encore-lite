@@ -36,7 +36,7 @@ block content
       td #{numeral(block.totalDifficulty).format()}
     tr
       td Timestamp:
-      td #{moment.unix(block.timestamp).format()} (#{moment.unix(block.timestamp).fromNow()})
+      td #{moment(Number(block.timestampMS)).format("YYYY-MM-DD HH:mm:ss.SSSZ")} (#{moment.unix(block.timestamp).fromNow()})
     tr
       td Size:
       td #{numeral(block.size).format()}

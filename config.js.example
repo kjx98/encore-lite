@@ -1,24 +1,28 @@
 var web3 = require('web3');
 var net = require('net');
 
-var config = function (endpoint) {
+var config = function () {
   
   this.logFormat = "combined";
-  this.provider = new web3.providers.HttpProvider(endpoint);
+  this.ipcPath = process.env["HOME"] + "/testebc/geth.ipc";
+  //this.provider = new web3.providers.IpcProvider(this.ipcPath, net);
+  //this.provider = new web3.providers.HttpProvider("http://127.0.0.1:8545");
+  this.provider = new web3.providers.WebsocketProvider("ws://127.0.0.1:8546");
   
   this.bootstrapUrl = "https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css";
   
   this.names = {
-    "0x9fa4f23079bae7a7a5c392b67e18093310315bfc": "ewasm Faucet",
-    "0xa8c3eeb2915373139bcfc287d4ae9e660d734881": "ewasm miner",
-    "0x000000000000000000000000000000000000000a": "sentinel contract",
+    "0x45356eaE347B5A70950415c40b1DF00C660f3f78": "fib contract",
+    "0x18B6244F98eCfb1657624b9335e4F23fe29CB168": "futures clear contract",
+    "0x9fA4F23079BAE7a7A5C392B67e18093310315bFc": "ewasm Faucet",
+    "0xa8C3eEb2915373139bcfc287D4ae9E660d734881": "ewasm miner",
+    "0x000000000000000000000000000000000000000A": "sentinel contract",
     "0x000000000000000000000000000000000000000b": "evm2wasm contract"
   }
-  this.faucetAddress = "{faucetAddress}";
-  this.privateKey = new Buffer('{privateKey}', 'hex');
-  this.chainId = "{chainId}";
-  this.rpcUrlSuggestion = "{rpcUrlSuggestion}";
-  this.blockCount = {blockCount};
+  
+  // look for transactions the last N blocks
+  // recommended: aleth=10, geth=128
+  this.blockCount = 128;
 }
 
 module.exports = config;

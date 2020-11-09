@@ -9,6 +9,7 @@ router.get('/:block', function(req, res, next) {
   var config = req.app.get('config');  
   var web3 = new Web3();
   web3.setProvider(config.provider);
+  /*
     web3.extend({
 		property: 'trace',
 		methods:[{
@@ -23,7 +24,7 @@ router.get('/:block', function(req, res, next) {
 			inputFormatter: [null, null]
 		}]
     });
-  
+  */
   async.waterfall([
     function(callback) {
       web3.eth.getBlock(req.params.block, true, function(err, result) {
@@ -33,9 +34,14 @@ router.get('/:block', function(req, res, next) {
       if (!result) {
         return next({name : "BlockNotFoundError", message : "Block not found!"});
       }
+
+      // disable tracing for cpp-eth / non-parity clients
+      /*
       web3.trace.block(result.number, function(err, traces) {
         callback(err, result, traces);
       });
+      */
+      callback(null, result, []);
     }
   ], function(err, block, traces) {
     if (err) {

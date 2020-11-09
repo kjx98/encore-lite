@@ -6,7 +6,6 @@ block content
     thead
       tr
         th Number
-        th Miner
         th Timestamp
         th # Tx
         th # Uncles
@@ -15,8 +14,6 @@ block content
         tr
           td
             a(href="/block/" + block.number) #{block.number}
-          td 
-            a(href="/account/" + block.author) #{nameformatter.format(block.author)}
           td #{moment(Number(block.timestampMS)).format("YYYY-MM-DD HH:mm:ss.SSSZ")}
           td #{block.transactions.length}
           td #{block.uncles.length}

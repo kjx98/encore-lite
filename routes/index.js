@@ -19,9 +19,9 @@ router.get('/', function(req, res, next) {
     }, function(lastBlock, callback) {
       var blocks = [];
       
-      var blockCount = 10;
+      var blockCount = config.blockCount;
       
-      if (lastBlock.number - blockCount < 0) {
+      if (lastBlock.number - config.blockCount < 0) {
         blockCount = lastBlock.number + 1;
       }
       
@@ -47,8 +47,8 @@ router.get('/', function(req, res, next) {
         txs.push(tx);
       });
     });
-    if (blocks.length > 10) {
-      blocks = blocks.slice(0,10);
+    if (blocks.length > 16) {
+      blocks = blocks.slice(0,16);
     }
     res.render('index', { blocks: blocks, txs: txs, blockCount: config.blockCount });
   });

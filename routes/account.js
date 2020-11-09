@@ -55,6 +55,7 @@ router.get('/:account', function(req, res, next) {
 
         if (code.substring(0,12) === EWASM_BYTES) {
           data.wast = true;
+          console.log(req.params.account, " is ewasm contract");
         }
 
         web3.debug.storageRangeAt(data.lastBlockHash, 0, req.params.account, '0x00', 1000, function(err, result) {

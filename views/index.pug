@@ -1,6 +1,13 @@
 extends layout
 
 block content
+  script(src='/socket.io/socket.io.js')
+  script.
+    var socket = io()
+    socket.on("message", function(msg) {
+      location.reload(true);
+    })
+
   h3 Recent blocks
   table.table
     thead

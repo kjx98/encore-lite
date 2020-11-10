@@ -24,10 +24,11 @@
     "numeral": "^2.0.6",
     "pug": "~2.0.0-beta10",
     "serve-favicon": "~2.3.2",
+    "socket.io": "^3.0.1",
     "solc": "^0.5.15",
     "string-similarity": "^1.2.2",
     "tmp": "^0.1.0",
-    "web3": "^1.3.0",
+    "web3": "^1.2.4",
     "web3-complete": "0.0.0",
     "yargs": "^7.0.1"
   }

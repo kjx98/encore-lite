@@ -1,6 +1,13 @@
 extends layout
 
 block content
+  script(src='/socket.io/socket.io.js')
+  script.
+    var socket = io()
+    socket.on("message", function(msg) {
+      location.reload(true);
+    })
+
   h3 Recent blocks
   table.table
     thead
@@ -19,7 +26,7 @@ block content
           td #{block.uncles.length}
   h3 Recent Transactions
   if txs.length === 0
-    p No transactions during the last 10 blocks
+    p No transactions during the last #{blockCount} blocks
   else
     table.table
       thead

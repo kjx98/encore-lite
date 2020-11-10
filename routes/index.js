@@ -4,7 +4,6 @@ var router = express.Router();
 var async = require('async');
 var Web3 = require('web3');
 
-
 router.get('/', function(req, res, next) {
   
   var config = req.app.get('config');  
@@ -13,6 +12,16 @@ router.get('/', function(req, res, next) {
   
   async.waterfall([
     function(callback) {
+      web3.eth.subscribe('newBlockHeaders', function(error, result) {
+        if (error) console.log("sub newBlock ", error);
+      })
+      .on("data", function(blockH) {
+        if (blockH.number) {
+            console.log("Got newBlock: ", blockH.number);
+            // need refresh page
+            global.io.emit("message", blockH.number);
+        };
+      });
       web3.eth.getBlock("latest", false, function(err, result) {
         callback(err, result);
       });

@@ -19,7 +19,7 @@ var config = function () {
     "0x000000000000000000000000000000000000000A": "sentinel contract",
     "0x000000000000000000000000000000000000000b": "evm2wasm contract"
   }
-  
+
   // look for transactions the last N blocks
   // recommended: aleth=10, geth=128
   this.blockCount = 128;

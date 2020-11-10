@@ -28,6 +28,19 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+var io = require('socket.io')(server);
+/*
+  io.on('connection', function(socket) {
+    console.log('Got new socket.io connection');
+    socket.on('disconnect', () => {
+      console.log("socket.io disconnect");
+    });
+    socket.on('salutations', (elem1, elem2, elem3) => {
+      console.log(elem1, elem2, elem3);
+    });
+  });
+*/
+global.io = io;
 
 /**
  * Normalize a port into a number, string, or false.

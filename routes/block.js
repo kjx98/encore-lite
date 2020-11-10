@@ -64,6 +64,9 @@ router.get('/:block', function(req, res, next) {
       }
       // console.log(tx);
     });
+
+    block.author = block.author || block.miner;
+
     res.render('block', { block: block });
   });
   

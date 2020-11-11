@@ -4,16 +4,37 @@ var router = express.Router();
 var async = require('async');
 var Web3 = require('web3');
 var web3complete = require('web3-complete');
+var util = require('ethereumjs-util');
 
 router.get('/:offset?', function(req, res, next) {
   var config = req.app.get('config');  
   var web3 = new Web3();
   web3complete(web3);
   web3.setProvider(config.provider);
-  
+
+  web3.extend({
+    property: 'debug',
+    methods:[{
+      name: 'accountRange',
+      call: 'debug_accountRange',
+      params: 6,
+      inputFormatter: [web3.extend.formatters.inputBlockNumberFormatter, null, null, null, null, null ],
+      outputFormatter: function(res) {
+        var formatted = [];
+        for (k in res.accounts) {
+          formatted.push(k);
+        }
+        return formatted;
+      }
+    }]
+  });
+
   async.waterfall([
     function(callback) {
-      web3.eth.getAccounts(function(err, result) {
+      // accountRange params: block number or "latest", tx index, max results
+      // web3.eth.getAccounts(function(err, result) {
+      web3.debug.accountRange(0, null, 32, function(err, result) {
+        console.log("Get accts: ", result);
         callback(err, result);
       });
     }, function(accounts, callback) {
@@ -31,6 +52,7 @@ router.get('/:offset?', function(req, res, next) {
       var lastAccount = accounts[accounts.length - 1];
       
       async.eachSeries(accounts, function(account, eachCallback) {
+        account = util.toChecksumAddress(account);
         web3.eth.getCode(account, function(err, code) {
           if (err) {
             return eachCallback(err);

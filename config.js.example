@@ -10,7 +10,9 @@ var config = function () {
   this.provider = new web3.providers.WebsocketProvider("ws://127.0.0.1:8546");
   
   this.bootstrapUrl = "https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css";
-  
+
+  this.baseUrl = "/explorer/";
+ 
   this.names = {
     "0x45356eaE347B5A70950415c40b1DF00C660f3f78": "fib contract",
     "0x18B6244F98eCfb1657624b9335e4F23fe29CB168": "futures clear contract",

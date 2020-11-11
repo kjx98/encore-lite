@@ -3,10 +3,12 @@ var router = express.Router();
 
 var async = require('async');
 var Web3 = require('web3');
+var web3complete = require('web3-complete');
 
 router.get('/:offset?', function(req, res, next) {
   var config = req.app.get('config');  
   var web3 = new Web3();
+  web3complete(web3);
   web3.setProvider(config.provider);
   
   async.waterfall([

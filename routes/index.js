@@ -3,11 +3,13 @@ var router = express.Router();
 
 var async = require('async');
 var Web3 = require('web3');
+var web3complete = require('web3-complete');
 
 router.get('/', function(req, res, next) {
   
   var config = req.app.get('config');  
   var web3 = new Web3();
+  web3complete(web3);
   web3.setProvider(config.provider);
   
   async.waterfall([
@@ -17,7 +19,7 @@ router.get('/', function(req, res, next) {
       })
       .on("data", function(blockH) {
         if (blockH.number) {
-            console.log("Got newBlock: ", blockH.number);
+            //console.log("Got newBlock: ", blockH.number);
             // need refresh page
             global.io.emit("message", blockH.number);
         };

@@ -7,6 +7,7 @@ var nodeStatus = function(config) {
   
   this.nbrPeers = -1;
   this.version = "";
+  this.miner = "";
   
   this.updateStatus = function() {
     var web3 = new Web3(config.provider);
@@ -24,7 +25,12 @@ var nodeStatus = function(config) {
           self.nbrPeers = result;
           callback(err);
         });
-      }
+      }, function(callback) {
+        web3.eth.getCoinbase(function(err, result) {
+          self.miner = result;
+          callback(err);
+        });
+	  }
     ], function(err) {
       if (err) {
         console.log("Error updating node status:", err)

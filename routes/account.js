@@ -14,7 +14,7 @@ router.get('/:account', function(req, res, next) {
 
   var config = req.app.get('config');
   var web3 = new Web3();
-  if (config.blockCount < 128) config.blockCount = 128;
+  if (config.blockCount < 32) config.blockCount = 32;
   web3complete(web3);
   web3.setProvider(config.provider);
 
@@ -119,6 +119,7 @@ router.get('/:account', function(req, res, next) {
  
       var blockCount = config.blockCount;
       var address = req.params.account;
+      if (blockCount < 128) blockCount = 128;
 
       if (nodeVersion.includes('aleth')) {
         if(!address.includes('0x')) {
@@ -138,8 +139,10 @@ router.get('/:account', function(req, res, next) {
 
       async.times(blockCount, function(n, next) {
         // n undefined?
-        //web3.eth.getBlock(data.lastBlock - n, true, function(err, block) {
-        web3.eth.getBlock(data.lastBlock, true, function(err, block) {
+        if (n) {
+          //console.log("sync time number", n);
+        } else n = 0;
+        web3.eth.getBlock(data.lastBlock - n, true, function(err, block) {
           next(err, block);
         });
       }, function(err, blocks) {

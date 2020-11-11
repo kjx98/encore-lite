@@ -27,6 +27,7 @@ router.get('/', function(req, res, next) {
       web3.eth.getBlock("latest", false, function(err, result) {
         callback(err, result);
       });
+      req.app.locals.nodeStatus.updateStatus();
     }, function(lastBlock, callback) {
       var blocks = [];
       

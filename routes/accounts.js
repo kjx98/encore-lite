@@ -66,9 +66,11 @@ router.get('/:offset?', function(req, res, next) {
         });
       })
     }, function(accounts, callback) {
-      
+
       var data = {};
-      
+      for (acct in config.names) {
+        accounts.push(acct);
+      }
       if (!accounts) {
         return callback({name:"FatDBDisabled", message: "FatDB system is not enabled. Please restart Geth/encore with the --fat-db=on parameter."});
       }
@@ -88,6 +90,7 @@ router.get('/:offset?', function(req, res, next) {
           }
           data[account] = {};
           data[account].address = account;
+          if (account in config.names) data[account].type = "Contract"; else
           data[account].type = code.length > 2 ? "Contract" : "Account";
           
           web3.eth.getBalance(account, function(err, balance) {

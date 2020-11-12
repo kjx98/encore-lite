@@ -9,6 +9,8 @@ var util = require('ethereumjs-util');
 router.get('/:offset?', function(req, res, next) {
   var config = req.app.get('config');  
   var web3 = new Web3();
+  var maxAccts = 16;
+  var nAccts = 0;
   web3complete(web3);
   web3.setProvider(config.provider);
 
@@ -18,7 +20,8 @@ router.get('/:offset?', function(req, res, next) {
       name: 'accountRange',
       call: 'debug_accountRange',
       params: 6,
-      inputFormatter: [web3.extend.formatters.inputBlockNumberFormatter, null, null, null, null, null ],
+      inputFormatter: [web3.extend.formatters.inputBlockNumberFormatter,
+                      null, null, null, null, null ],
       outputFormatter: function(res) {
         var formatted = [];
         for (k in res.accounts) {
@@ -31,18 +34,43 @@ router.get('/:offset?', function(req, res, next) {
 
   async.waterfall([
     function(callback) {
-      // accountRange params: block number or "latest", tx index, max results
-      // web3.eth.getAccounts(function(err, result) {
-      web3.debug.accountRange(0, null, 32, function(err, result) {
-        console.log("Get accts: ", result);
-        callback(err, result);
-      });
+      web3.eth.getBlock('latest', function(err, result) {
+        if (err) {
+          callback(err, null)
+          return
+        }
+
+        let offset = req.params.offset
+        if (offset) {
+          // offset is hash of the address
+          //offset = '0x' + util.keccak256(offset).toString('hex')
+          offset = util.keccak256(offset).toString('base64')
+        } else {
+          // starting offset should be 0x00...
+          //offset = '0x' + Buffer.alloc(32).toString('hex')
+          offset = Buffer.alloc(32).toString('base64')
+        }
+
+        console.log(req.params.offset, offset);
+
+        // accountRange params: block number or "latest", start address hash, max results
+		// offset should be base64 code
+        // accountRangeAt params: block number or "latest", tx index, start address hash, max results
+        //result = Object.values(result.addressMap);
+        web3.debug.accountRange(result.number, offset, maxAccts+5, function(err, result) {
+          if (err) {
+            callback(err, null)
+            return
+          }
+          callback(err, result);
+        });
+      })
     }, function(accounts, callback) {
       
       var data = {};
       
       if (!accounts) {
-        return callback({name:"FatDBDisabled", message: "Parity FatDB system is not enabled. Please restart Parity with the --fat-db=on parameter."});
+        return callback({name:"FatDBDisabled", message: "FatDB system is not enabled. Please restart Geth/encore with the --fat-db=on parameter."});
       }
       
       if (accounts.length === 0) {
@@ -50,6 +78,7 @@ router.get('/:offset?', function(req, res, next) {
       }
       
       var lastAccount = accounts[accounts.length - 1];
+      nAccts = accounts.length;
       
       async.eachSeries(accounts, function(account, eachCallback) {
         account = util.toChecksumAddress(account);
@@ -77,7 +106,12 @@ router.get('/:offset?', function(req, res, next) {
     if (err) {
       return next(err);
     }
-    
+    //console.log("count accounts: ", nAccts, " maxAccts: ", maxAccts);
+    if (nAccts < maxAccts) {
+      // console.log("render accounts_last");
+      lastAccount =  null;
+    }
+    //console.log("lastAccount: ", lastAccount);
     res.render("accounts", { accounts: accounts, lastAccount: lastAccount });
   });
 });

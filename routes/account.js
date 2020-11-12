@@ -21,9 +21,9 @@ router.get('/:account', function(req, res, next) {
   var db = req.app.get('db');
 
   var data = {};
-  
+
   nodeVersion = req.app.locals.nodeStatus.version;
-                                                  
+
   async.waterfall([
     function(callback) {
       web3.eth.getBlock("latest", false, function(err, result) {
@@ -91,7 +91,6 @@ router.get('/:account', function(req, res, next) {
         var abi = JSON.parse(data.source.abi);
         var contract = web3.eth.contract(abi).at(req.params.account);
 
-
         async.eachSeries(abi, function(item, eachCallback) {
           if (item.type === "function" && item.inputs.length === 0 && item.constant) {
             try {
@@ -113,7 +112,7 @@ router.get('/:account', function(req, res, next) {
       } else {
         callback();
       }
-      
+
     }, function(callback) {
       var blocks = [];
  
@@ -130,7 +129,7 @@ router.get('/:account', function(req, res, next) {
         }
       }
       address = util.toChecksumAddress(address);
-      
+
       var traces = [];
 
       if (data.lastBlock - blockCount < 0) {
@@ -190,7 +189,7 @@ router.get('/:account', function(req, res, next) {
         tracesReceived.push(trace);
       }
     });
-    
+
     data.tracesSent = tracesSent;
     data.tracesReceived = tracesReceived;
 

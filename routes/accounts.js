@@ -7,7 +7,7 @@ var web3complete = require('web3-complete');
 var util = require('ethereumjs-util');
 
 router.get('/:offset?', function(req, res, next) {
-  var config = req.app.get('config');  
+  var config = req.app.get('config');
   var web3 = new Web3();
   var maxAccts = 16;
   var nAccts = 0;
@@ -68,9 +68,10 @@ router.get('/:offset?', function(req, res, next) {
     }, function(accounts, callback) {
 
       var data = {};
-      for (acct in config.names) {
-        accounts.push(acct);
-      }
+      if (! req.params.offset ) for (acct in config.names) {
+        //accounts.push(acct);
+        accounts.unshift(acct);
+      };
       if (!accounts) {
         return callback({name:"FatDBDisabled", message: "FatDB system is not enabled. Please restart Geth/encore with the --fat-db=on parameter."});
       }

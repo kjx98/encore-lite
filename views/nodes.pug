@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h3 Neighbor Nodes
+  table.table
+    thead
+      tr
+        th 节点信息
+        // th 节点程序版本
+        th 节点位置
+    tbody
+      tr
+        td #{myNode.enode}
+        // td #{myNode.name}
+        td 本地节点
+      for nn in peers
+        tr
+          td #{nn.enode}
+          // td #{nn.name}
+          td 邻居

@@ -16,7 +16,7 @@ router.get('/verify', function(req, res, next) {
 
 router.post('/verify', function(req, res, next) {
 
-  var config = req.app.get('config');  
+  var config = req.app.get('config');
   var web3 = new Web3();
   web3.setProvider(config.provider);
   

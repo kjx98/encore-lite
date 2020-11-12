@@ -13,6 +13,8 @@ block content
       tr
         td Name:
         td #{account.name}
+        if account.wast
+          td EWASM contract
 
   div
     ul.nav.nav-tabs(role='tablist')

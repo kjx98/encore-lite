@@ -7,7 +7,7 @@ var web3complete = require('web3-complete');
 
 router.get('/', function(req, res, next) {
   
-  var config = req.app.get('config');  
+  var config = req.app.get('config');
   var web3 = new Web3();
   web3complete(web3);
   web3.setProvider(config.provider);

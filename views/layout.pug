@@ -13,8 +13,14 @@ html(lang="en")
     title EncoreChain Light
     base(href=config.baseUrl)
     
+    link(rel='shortcut icon' href='/images/favicon.png')
+    link(rel='stylesheet', href='/stylesheets/style.css')
     link(href=config.bootstrapUrl, rel="stylesheet", crossorigin="anonymous")    
-    link(rel='stylesheet', href='stylesheets/style.css')
+    //script(src='/js/libwabt.js')
+    script(src='/js/wasmutils.js')
+    script(src='/js/utils.js')
+  script.
+    metamask = window.web3
     
   body
     nav.navbar.navbar-inverse.navbar-fixed-top
@@ -35,6 +41,8 @@ html(lang="en")
               a(href='accounts') Accounts
             li
               a(href='tx/pending') Pending Tx
+            li
+              a(href='faucet') Faucet
             li.dropdown
               a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
                 | Tools

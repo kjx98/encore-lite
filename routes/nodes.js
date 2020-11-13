@@ -34,8 +34,8 @@ router.get('/:offset?', function(req, res, next) {
         }
 
         var myNode = {};
-		myNode.enode = result.enode.split("?")[0];
-		myNode.name = result.name;
+        myNode.enode = result.enode.split("?")[0];
+        myNode.name = result.name;
         //console.log("nodeInfo: ", result);
         //console.log("myNod: ", myNode);
         callback(err, myNode);
@@ -46,7 +46,7 @@ router.get('/:offset?', function(req, res, next) {
           return callback({name:"getPeers", message: "no admin.peers?"});
         }
         //console.log("getPeers: ", results);
-		var peers = [];
+        var peers = [];
         for (i=0,len=results.length; i<len; i++) {
           peers.push({"enode": results[i].enode.split("?")[0],
                       "name": results[i].name});

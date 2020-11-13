@@ -14,6 +14,8 @@ var contract = require('./routes/contract');
 var signature = require('./routes/signature');
 var search = require('./routes/search');
 var nodes = require('./routes/nodes');
+var faucet = require('./routes/faucet');
+var deploy = require('./routes/deploy');
 
 var config = new(require('./config.js'))();
 
@@ -56,6 +58,8 @@ app.use(config.baseUrl+'contract', contract);
 app.use(config.baseUrl+'signature', signature);
 app.use(config.baseUrl+'search', search);
 app.use(config.baseUrl+'nodes', nodes);
+app.use(config.baseUrl+'faucet', faucet);
+app.use(config.baseUrl+'deploy', deploy);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

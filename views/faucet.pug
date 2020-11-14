@@ -1,6 +1,6 @@
 extends layout
 block content
-  h3 ewasm testnet ether faucet
+  h3 encore testnet ether faucet
   div.div.panel.panel-default
     div.div.panel-heading
       h4 Faucet
@@ -10,6 +10,7 @@ block content
       form(action='faucet' method='post')
         .form-group
           input.from-control#useraccount(type='hidden', name="useraccount")
+          //input.from-control#useraccount(type='text', placeholder='User Account', name="useraccount")
         |
         button.btn.btn-success(type='submit') request 1 ether from faucet
   div.div.panel.panel-default

@@ -34,8 +34,9 @@ router.get('/:offset?', function(req, res, next) {
         }
 
         var myNode = {};
-        myNode.enode = result.enode.split("?")[0];
-        myNode.name = result.name;
+        enode = result.enode.split(":");
+        myNode.enode = enode[0]+':'+enode[1];
+        myNode.name = result.name.split("-")[0].split("/")[1];
         //console.log("nodeInfo: ", result);
         //console.log("myNod: ", myNode);
         callback(err, myNode);
@@ -48,8 +49,10 @@ router.get('/:offset?', function(req, res, next) {
         //console.log("getPeers: ", results);
         var peers = [];
         for (i=0,len=results.length; i<len; i++) {
-          peers.push({"enode": results[i].enode.split("?")[0],
-                      "name": results[i].name});
+          enode = results[i].enode.split(":");
+          ver = results[i].name.split("-")[0].split("/")[1];
+          peers.push({"enode": enode[0]+':'+enode[1],
+                      "name": ver});
         }
         callback(err, myNode, peers);
       });

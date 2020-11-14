@@ -6,15 +6,15 @@ block content
     thead
       tr
         th 节点信息
-        // th 节点程序版本
-        th 节点位置
+        th 版本
+        th 位置
     tbody
       tr
         td #{myNode.enode}
-        // td #{myNode.name}
-        td 本地节点
+        td #{myNode.name}
+        td 本地
       for nn in peers
         tr
           td #{nn.enode}
-          // td #{nn.name}
+          td #{nn.name}
           td 邻居

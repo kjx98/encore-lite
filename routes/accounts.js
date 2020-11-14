@@ -91,7 +91,7 @@ router.get('/:offset?', function(req, res, next) {
           }
           data[account] = {};
           data[account].address = account;
-          if (account in config.names) data[account].type = "Contract"; else
+          //if (account in config.names) data[account].type = "Contract"; else
           data[account].type = code.length > 2 ? "Contract" : "Account";
           
           web3.eth.getBalance(account, function(err, balance) {

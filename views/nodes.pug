@@ -18,3 +18,12 @@ block content
           td #{nn.enode}
           td #{nn.name}
           td 邻居
+  h3 授权账户
+  table.table
+    thead
+      tr
+        th 签名账户
+    tbody
+      for acct in signers
+        tr
+          td #{acct}

@@ -22,6 +22,10 @@ router.get('/:offset?', function(req, res, next) {
       name: 'getPeers',
       call: 'admin_peers',
       params: 0
+    },{
+      name: 'getSigners',
+      call: 'clique_getSigners',
+      params: 0
     }]
   });
 
@@ -56,13 +60,21 @@ router.get('/:offset?', function(req, res, next) {
         }
         callback(err, myNode, peers);
       });
+    }, function(myNode, peers, callback) {
+      web3.debug.getSigners((err,signers) => {
+        if (err) {
+          return callback({name:"getSigners", message: "no clique.getSigners?"});
+        }
+        callback(err, myNode, peers, signers);
+      });
     }
-  ], function(err, myNode, peers) {
+  ], function(err, myNode, peers, signers) {
     if (err) {
       return next(err);
     }
     //console.log("peers: ", peers);
-    res.render("nodes", { myNode: myNode, peers: peers });
+    //console.log("Signers: ", signers);
+    res.render("nodes", { myNode: myNode, peers: peers, signers: signers });
   });
 });
 

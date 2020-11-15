@@ -86,6 +86,7 @@ router.post('/', function(req, res, next) {
     },
     function(balance, callback) {
       data.faucetBalance = balance;
+      //console.log("faucet post balance: ", web3.utils.fromWei(balance,'ether'), "ETH");
       web3.eth.getTransactionCount(data.faucetAddress, function(err, result) {
         callback(err, result);
       })
@@ -94,25 +95,30 @@ router.post('/', function(req, res, next) {
       nonce = txCount;
       if (userAccount) {
         var tx = {
+          from: data.faucetAddress,
           to: userAccount,
           data: '',
           value: sendAmount,
           nonce: nonce
         };
         web3.eth.estimateGas(tx, function(err, estimatedGas) {
+          //console.log("estimateGas err: ", err);
           callback(err, estimatedGas);
         })
       } else {
         callback("User account not found, please verify Metamask is available", null);
       }
-          
     },
     function(estimatedGas, callback) {
       var gasPrice = web3.eth.gasPrice;
       var gasLimit = estimatedGas;
       var privateKey = config.privateKey;
+      if (!gasPrice) gasPrice = 1; // 1...10000 all works
+      var acct = web3.eth.accounts.privateKeyToAccount(privateKey.toString('hex'));
+      //console.log("faucet addr: ", acct.address);
       if (privateKey) {
         var rawTx = {
+          from: data.faucetAddress,
           to: userAccount,
           value: sendAmount,
           data: '',
@@ -121,6 +127,8 @@ router.post('/', function(req, res, next) {
           nonce: nonce
         };
 
+        //var tx = new Tx(acct.sign(rawTx));
+        //console.log("tx: ", rawTx);
         var tx = new Tx(rawTx);
         tx.sign(privateKey);
 

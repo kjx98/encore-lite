@@ -9,12 +9,12 @@ if (arguments.length < 1) {
   console.log("usage: acctDec <keystore file> [passwd]");
   process.exit();
 }
-console.log("argc: ", arguments.length);
+//console.log("argc: ", arguments.length);
 var _acctFile = arguments[0];
 var acctJson = JSON.parse(fs.readFileSync(_acctFile));
 var _pwd = "testpass";
 if (arguments.length > 1) _pwd = arguments[1];
-console.log("Passwd: ", _pwd);
+//console.log("Passwd: ", _pwd);
 acct = web3.eth.accounts.decrypt(acctJson, _pwd);
 console.log('Address: ', acct.address);
 console.log('privateKey: ', acct.privateKey);

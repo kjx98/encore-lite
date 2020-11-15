@@ -3,7 +3,7 @@
 var Web3 = require('web3');
 var net = require('net');
 var web3complete = require('web3-complete');
-ipcPath = process.env["HOME"] + "/testebc/data1/geth.ipc";
+ipcPath = process.env["HOME"] + "/testebc/geth.ipc";
 var web3 = new Web3();
 web3complete(web3);
 web3.setProvider(new Web3.providers.IpcProvider(ipcPath, net));
@@ -19,7 +19,14 @@ var _to = arguments[1];
 var _value = web3.utils.toWei(arguments[2], "ether");
 var _pwd = "testpass";
 if (arguments.length > 3) _pwd = arguments[3];
-console.log("Passwd: ", _pwd);
+//console.log("Passwd: ", _pwd);
+/*
+console.log("gasPrice: ", web3.eth.gasPrice);
+web3.eth.getGasPrice((err,res)=>{
+  console.log("err: ", err, "result: ", res);
+});
+console.log("Gwei: ", web3.utils.toWei('1', "Gwei"));
+*/
 if (!web3.utils.isAddress(_from) || !web3.utils.isAddress(_to)){
   console.log('Parameters not a address');
   process.exit();

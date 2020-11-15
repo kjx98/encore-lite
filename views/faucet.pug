@@ -9,8 +9,8 @@ block content
       p balance: #{ethformatter(data.faucetBalance)}
       form(action='faucet' method='post')
         .form-group
-          input.from-control#useraccount(type='hidden', name="useraccount")
-          //input.from-control#useraccount(type='text', placeholder='User Account', name="useraccount")
+          //input.from-control#useraccount(type='hidden', name="useraccount")
+          input.from-control#useraccount(type='text', placeholder='User Account', name="useraccount")
         |
         button.btn.btn-success(type='submit') request 1 ether from faucet
   div.div.panel.panel-default

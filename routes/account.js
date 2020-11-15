@@ -215,6 +215,7 @@ router.get('/:account', function(req, res, next) {
     data.blocks = [];
     var txCounter = 0;
     for (var block in blocks) {
+      //console.log("block: ", blocks[block]);
       data.blocks.push(blocks[block]);
       txCounter++;
     }

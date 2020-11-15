@@ -11,7 +11,7 @@ web3.setProvider(new Web3.providers.IpcProvider(ipcPath, net));
 //获取node参数
 var arguments = process.argv.splice(2);
 if (arguments.length < 3) {
-  console.log("usage: transfer <fromAcct> <toAcct> <Value>");
+  console.log("usage: transfer <fromAcct> <toAcct> <Value> [passwd]");
   process.exit();
 }
 var _from = arguments[0];

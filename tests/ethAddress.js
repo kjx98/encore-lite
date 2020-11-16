@@ -3,6 +3,8 @@ console.log(Web3.version);
 //设置web3对象
 var web3 = new Web3('http://127.0.0.1:8545/');//encore正式网络节点地址
 
+var addressList=[];
+
 //获取当前区块高度
 function getBlockNumber () {
     web3.eth.getBlockNumber().then(

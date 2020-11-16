@@ -23,7 +23,7 @@ var config = function () {
   }
 
   this.faucetAddress = "0x9fa4f23079bae7a7a5c392b67e18093310315bfc";
-  //this.privateKey = new Buffer('<insert_private_key_here>', 'hex');
+  //this.privateKey = Buffer.from('<insert_private_key_here>', 'hex');
 
   //chain ID, encore testnet = 1337
   this.chainId = "1337";

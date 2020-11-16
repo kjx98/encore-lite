@@ -132,6 +132,7 @@ router.get('/:tx', function(req, res, next) {
         return callback({ message: "Transaction hash not found" }, null);
       }
 
+      //console.log("tx :", result);
       web3.eth.getTransactionReceipt(result.hash, function(err, receipt) {
         callback(err, result, receipt);
       });

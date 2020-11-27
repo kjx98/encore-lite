@@ -25,7 +25,7 @@
     "pug": "~2.0.0-beta10",
     "serve-favicon": "~2.3.2",
     "socket.io": "^3.0.1",
-    "solc": "^0.5.15",
+    "solc": "^0.6.1",
     "string-similarity": "^1.2.2",
     "tmp": "^0.1.0",
     "web3": "^1.2.4",

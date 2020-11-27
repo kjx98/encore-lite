@@ -4,7 +4,7 @@ var net = require('net');
 var config = function () {
   
   this.logFormat = "combined";
-  this.ipcPath = process.env["HOME"] + "/testebc/geth.ipc";
+  this.ipcPath = process.env["HOME"] + "/.encore/geth.ipc";
   //this.provider = new web3.providers.IpcProvider(this.ipcPath, net);
   //this.provider = new web3.providers.HttpProvider("http://127.0.0.1:8545");
   this.provider = new web3.providers.WebsocketProvider("ws://127.0.0.1:8546");

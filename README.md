@@ -1,7 +1,7 @@
 # EncoreChain explorer Lite
 ### Lightweight blockchain explorer for EncoreChain
 
-Encore Lite is an Encore(Ethereum also) blockchain explorer built with NodeJS and Express. It does not require an external database and retrieves all information on the fly from a backend Ethereum node.
+Encore Lite forked from etherchain-light of EWASM project[https://github.com/ewasm/etherchain-light.git] is an Encore(Ethereum also) blockchain explorer built with NodeJS and Express. It does not require an external database and retrieves all information on the fly from a backend Ethereum node.
 
 While there are several excellent Ethereum blockchain explorers available (etherscan, ether.camp and etherchain) they operate on a fixed subset of Ethereum networks, usually the mainnet and testnet. Currently there are no network agnostic blockchain explorers available. If you want to develop Dapps on a private testnet or would like to launch a private / consortium network, Ether Lite will allow you to quickly explore such chains.
 
